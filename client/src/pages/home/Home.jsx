@@ -1,23 +1,17 @@
-import { useEffect, useState } from "react";
-import { getTickets } from "../../http/tickets/get";
+import { useEffect } from "react";
 import CardComponent from "../../components/Cards/CardComponent";
+import { useTicket, useTicketUpdate } from "../../context/TicketsContext";
 import { decodeJWT } from "../../utils/utils";
 
 const Home = () => {
-	const [tickets, setTickets] = useState();
-
-	const fetchTickets = async () => {
-		const data = await getTickets();
-		setTickets(data);
-	};
+	const tickets = useTicket();
+	const refetch = useTicketUpdate();
 
 	useEffect(() => {
 		const token = decodeJWT();
-		if (token) fetchTickets();
+		if (token) refetch();
 	}, []);
 
-	return (
-		<>{tickets && <CardComponent data={tickets} refetch={fetchTickets} />}</>
-	);
+	return <>{tickets && <CardComponent data={tickets} />}</>;
 };
 export default Home;

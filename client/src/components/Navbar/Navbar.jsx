@@ -6,16 +6,19 @@ import "antd/dist/reset.css";
 import { decodeJWT, handelLogout } from "../../utils/utils";
 import AddTicket from "../../pages/addTicket/AddTicket";
 import { handelAddTicket } from "../../http/tickets/post";
+import { useTicketUpdate } from "../../context/TicketsContext";
 
 const Navbar = () => {
 	const token = decodeJWT();
 	const email = token?.email;
 
+	const refetch = useTicketUpdate();
+
 	const [visible, setVisible] = useState(false);
 
 	const addNewTicket = async (values) => {
 		const data = await handelAddTicket(values);
-		if (data.result) window.location.reload();
+		if (data.result) refetch();
 		setVisible(false);
 	};
 

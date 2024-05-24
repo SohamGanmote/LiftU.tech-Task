@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons";
 import { updateStatus } from "../../http/tickets/put";
 import { deleteTicket } from "../../http/tickets/delete";
+import { useTicketUpdate } from "../../context/TicketsContext";
 
 const getStatusColor = (status) => {
 	switch (status) {
@@ -21,7 +22,9 @@ const getStatusColor = (status) => {
 	}
 };
 
-const CardComponent = ({ data, refetch }) => {
+const CardComponent = ({ data }) => {
+	const refetch = useTicketUpdate();
+
 	const handleChangeStatus = async (id, newStatus) => {
 		const data = await updateStatus({ id, status: newStatus });
 		if (data.data) refetch();
@@ -83,7 +86,9 @@ const CardComponent = ({ data, refetch }) => {
 						</>
 					}
 				>
-					<p>{item.description}</p>
+					<p style={{ maxHeight: "150px", overflow: "auto" }}>
+						{item.description}
+					</p>
 					<Tag color={getStatusColor(item.status)}>{item.status}</Tag>
 				</Card>
 			))}

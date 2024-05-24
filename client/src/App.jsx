@@ -1,10 +1,13 @@
 import "./App.css";
 import Router from "./Router";
+import { TicketsContext } from "./context/TicketsContext";
 
 const App = () => {
 	return (
 		<>
-			<Router />
+			<TicketsContext>
+				<Router />
+			</TicketsContext>
 		</>
 	);
 };
