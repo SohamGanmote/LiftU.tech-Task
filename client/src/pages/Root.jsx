@@ -10,14 +10,12 @@ const Root = () => {
 		const token = localStorage.getItem("token");
 
 		if (!token) {
-			navigate("/auth/login");
+			return navigate("/auth/login");
 		}
 
 		const tokenData = decodeJWT();
 
-		console.log(tokenData);
-
-		if (!tokenData.email) {
+		if (!tokenData?.email) {
 			localStorage.removeItem("token");
 			navigate("/auth/login");
 		}

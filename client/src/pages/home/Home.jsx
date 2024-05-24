@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getTickets } from "../../http/tickets/get";
 import CardComponent from "../../components/Cards/CardComponent";
+import { decodeJWT } from "../../utils/utils";
 
 const Home = () => {
 	const [tickets, setTickets] = useState();
@@ -11,7 +12,8 @@ const Home = () => {
 	};
 
 	useEffect(() => {
-		fetchTickets();
+		const token = decodeJWT();
+		if (token) fetchTickets();
 	}, []);
 
 	return (

@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
-const generateAccessToken = require("../utils/token.utils");
+const { generateAccessToken } = require("../utils/token.utils");
 
 const loginUser = async (req, res) => {
 	try {
@@ -35,9 +35,11 @@ const registerUser = async (req, res) => {
 		if (!email || !password) {
 			return res.status(400).json({ err: "missing fields" });
 		}
+
 		const account = await User.find({
 			email,
 		});
+
 		if (account.length !== 0) {
 			return res.status(200).json({ err: "Email already exists" });
 		}
@@ -45,11 +47,12 @@ const registerUser = async (req, res) => {
 		const hashedPassword = await bcrypt.hash(password, 10);
 
 		const token = generateAccessToken(email);
-
+		console.log(token);
 		const user = new User({
 			email,
 			password: hashedPassword,
 		});
+
 		const result = await user.save();
 
 		res.status(200).json({ message: "success", token, result });

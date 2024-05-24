@@ -31,7 +31,6 @@ export const handelRegister = async ({ email, password }) => {
 	try {
 		const response = await axios.post(`${baseUrl}/auth/register`, payload);
 		let token = response.data?.token;
-		if (!token) alert(response.data.err);
 		localStorage.setItem("token", token);
 		return token;
 	} catch (error) {
