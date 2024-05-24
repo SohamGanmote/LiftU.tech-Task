@@ -23,7 +23,7 @@ const Home = () => {
 		<div>
 			<Select
 				defaultValue="All"
-				style={{ width: 200, marginBottom: 20 }}
+				style={{ width: 200, margin: 10 }}
 				onChange={handleStatusChange}
 			>
 				<Option value="All">All</Option>
@@ -31,7 +31,7 @@ const Home = () => {
 				<Option value="In Progress">In Progress</Option>
 				<Option value="Done">Done</Option>
 			</Select>
-			{tickets && <CardComponent data={tickets} />}
+			{tickets && <CardComponent data={tickets} statusFilter={statusFilter} />}
 		</div>
 	);
 };

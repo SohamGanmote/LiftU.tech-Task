@@ -25,7 +25,7 @@ const createTask = async (req, res) => {
 const getTask = async (req, res) => {
 	try {
 		const { filterBy } = req.query;
-		if (filterBy !== "All") {
+		if (filterBy !== "All" && filterBy !== "") {
 			const data = await Task.find({ status: filterBy });
 			return res.send({ message: "Done!", data });
 		}

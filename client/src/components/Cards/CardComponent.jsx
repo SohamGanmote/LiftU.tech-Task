@@ -22,17 +22,17 @@ const getStatusColor = (status) => {
 	}
 };
 
-const CardComponent = ({ data }) => {
+const CardComponent = ({ data, statusFilter }) => {
 	const refetch = useTicketUpdate();
 
 	const handleChangeStatus = async (id, newStatus) => {
 		const data = await updateStatus({ id, status: newStatus });
-		if (data.data) refetch();
+		if (data.data) refetch(statusFilter);
 	};
 
 	const handleDelete = async (id) => {
 		const data = await deleteTicket({ id });
-		if (data.data) refetch();
+		if (data.data) refetch(statusFilter);
 	};
 
 	const menu = (id) => (
