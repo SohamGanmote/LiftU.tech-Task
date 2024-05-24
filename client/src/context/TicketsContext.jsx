@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import { decodeJWT } from "../utils/utils";
+import React, { useContext, useState } from "react";
 import { getTickets } from "../http/tickets/get";
 
 const TicketContext = React.createContext();
@@ -16,8 +15,8 @@ export const useTicketUpdate = () => {
 export const TicketsContext = ({ children }) => {
 	const [tickets, setTickets] = useState();
 
-	const fetchTickets = async () => {
-		const data = await getTickets();
+	const fetchTickets = async (filterBy) => {
+		const data = await getTickets(filterBy);
 		setTickets(data);
 	};
 
