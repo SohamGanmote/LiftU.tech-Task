@@ -20,3 +20,21 @@ export const getTickets = async (filterBy) => {
 		console.error("Error fetching data: ", error);
 	}
 };
+
+export const getTicketsDetailsHandler = async () => {
+	const data = await fetch(`${baseUrl}/task?filterBy=All`, {
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem("token")}`,
+		},
+	})
+		.then((response) => {
+			return response.json();
+		})
+		.then((response) => {
+			return response.data;
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+	return data;
+};
